@@ -2,7 +2,8 @@ const vm = {
   el: '#app',
   data() {
     return {
-      message: 'Hello Vue!'
+      message: 'Hello Vue!',
+      show: false
     }
   }
 }

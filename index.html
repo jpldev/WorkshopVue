@@ -11,6 +11,15 @@
 </head>
 <body>
     <div id="app">
+
+    <p v-if="show">
+        {{ message }}
+    </p>
+    <p v-else="">
+        Esta oculto!
+    </p>
+
+
     {{ message }} <!-- Esto es una expresion -->
     </div>
 
