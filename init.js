@@ -2,15 +2,16 @@ const vm = {
   el: '#app',
   data() {
     return {
-      message: 'Hello Vue!',
-      show: false,
-      items: [
-        { text: 'A' },
-        { text: 'B' },
-        { text: 'C' },
-      ],
-      url: "http://www.google.com"
+      name: 'tHIS IS it'  //[props]
     }
+  },
+  methods: {
+    //Desde los methods podemos acceder a las [props] usando This.
+    //This es una representacion interna del mismo vm
+    formatName(){
+      this.name = this.name.split(' ').join('-').toLowerCase()
+    }
+
   }
 }
 

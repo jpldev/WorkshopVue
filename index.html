@@ -12,24 +12,18 @@
 <body>
     <div id="app">
 
-    <p v-if="show">
-        {{ message }}
-    </p>
-    <p v-else="">
-        Esta oculto!
-    </p>
+        <input type="text" v-model="name">
+        <button v-on:click="formatName">Format</button>
 
-    <ul>
-        <li v-for= "i in items">
-            {{ i.text }}
-        </li>
-    </ul>
-
-    <a v-bind:href="url">Link Dinámico</a>
+        <!-- Como podemos ver, la manera de utilizar la directiva es v-on:[nombre del evento]
+        (similar al uso de v-bind). Esta directiva es muy flexible y nos permite establecer acciones 
+        para cualquier tipo de eventos (focus, keyup, blur, load, etc). -->
 
 
+        <p>
+            {{ name }}
+        </p>
 
-    {{ message }} <!-- Esto es una expresion -->
     </div>
 
 
