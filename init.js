@@ -3,7 +3,13 @@ const vm = {
   data() {
     return {
       message: 'Hello Vue!',
-      show: false
+      show: false,
+      items: [
+        { text: 'A' },
+        { text: 'B' },
+        { text: 'C' },
+      ],
+      url: "www.google.com"
     }
   }
 }
