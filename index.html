@@ -10,26 +10,13 @@
 
 </head>
 <body>
+
     <div id="app">
-
-        <input type="text" v-model="name">
-        <button v-on:click="formatName">Format</button>
-
-        <!-- Como podemos ver, la manera de utilizar la directiva es v-on:[nombre del evento]
-        (similar al uso de v-bind). Esta directiva es muy flexible y nos permite establecer acciones 
-        para cualquier tipo de eventos (focus, keyup, blur, load, etc). -->
-
-        <!-- La directiva v-on (al igual que v-bind), también tiene un shortcut, 
-        podemos simplificar usando @: @click="formatName". -->
-
-        <p>
-            {{ name }}
-        </p>
-
+        <ul>
+            <person-item v-for="p in persons" :person="p"></person-item>
+        </ul>
     </div>
 
-
-    
     <script src="https://unpkg.com/vue"></script>
     <script src="./init.js"></script>
 </body>
