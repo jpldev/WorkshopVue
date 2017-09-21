@@ -9,7 +9,7 @@ const vm = {
         { text: 'B' },
         { text: 'C' },
       ],
-      url: "www.google.com"
+      url: "http://www.google.com"
     }
   }
 }
