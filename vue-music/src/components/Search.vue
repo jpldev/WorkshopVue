@@ -10,20 +10,27 @@
 </template>
 
 <script>
-export default {
-  name: 'Search',
+  import spotify from '../services/spotify'
 
-  data () {
-    return {
-      query: '',
-      results: []
-    }
-  },
+  export default {
+    name: 'Search',
 
-  methods: {
-    search () {
-      console.log(this.query)
+    data () {
+      return {
+        query: '',
+        results: []
+      }
+    },
+
+    methods: {
+      search () {
+        // Hardcodeamos el parámetro type con el valor "artist"
+        spotify.search(this.query, 'artist')
+          .then(res => {
+            console.log(res)
+            this.results = res.artists.items
+          })
+      }
     }
   }
-}
 </script>
