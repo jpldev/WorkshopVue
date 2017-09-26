@@ -71,6 +71,13 @@
       }
     },
 
+    watch: {
+      query(newValue, oldValue){
+        console.log(newValue, oldValue);
+      }
+
+    },
+
     computed: {
       found () {
         return this.results.length
