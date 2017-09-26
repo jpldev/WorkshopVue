@@ -1,10 +1,10 @@
 <template lang="html">
   <div> <!-- ⚠️ Este div es importante: todos los componentes deben tener un único elemento principal -->
-    <input type="text" v-model="query" @keyup.enter="search" placeholder="🔎  Search here...">
-    <a href="#" @click.prevent="reset">x</a>
-    
 
+    <a href="#" @click.prevent="reset">x</a>
+    <input type="text" v-model="query" @keyup.enter="search" placeholder="🔎  Search here...">
     <button type="button" @click="search">Search</button>
+    <small>{{ found }}</small>
 
     <ul>
       <li v-for="r in results">
@@ -17,6 +17,14 @@
         </div>
       </li>
     </ul>
+
+    <h3 v-if="results.length === 0">
+      No hay resultados
+    </h3>
+    
+
+
+
   </div>
 </template>
 
@@ -63,7 +71,15 @@
       }
     },
 
+    computed: {
+      found () {
+        return this.results.length
+          ? `${this.results.length} items` : ''
+      }
+    },
+
    methods: {
+     //***Inicio Methods***
       search () {
         // Hardcodeamos el parámetro type con el valor "artist"
         spotifyService.search(this.query, 'artist')
@@ -75,9 +91,10 @@
        reset () {
         this.query = ''
         this.results = []
-      }
+      },
 
     }
+    //***Fin Methods***
   }
 </script>
 
