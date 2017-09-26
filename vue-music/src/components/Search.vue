@@ -71,9 +71,23 @@
       }
     },
 
+    created(){
+
+      //Si la ruta es distinto de / entonces nos estan pasando una busqueda
+      if(location.pathname !== '/'){
+        var pathname = location.pathname;
+        console.log(pathname.substring(1, pathname.length));
+        this.query = pathname.substring(1, pathname.length);
+        this.search();
+
+      }
+
+    },
+
+
     watch: {
       query(newValue, oldValue){
-        console.log(newValue, oldValue);
+        // console.log(newValue, oldValue);
       }
 
     },
