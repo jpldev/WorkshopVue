@@ -2,7 +2,7 @@
   <div id="app">
     <h1>Vuetify</h1>
     <hr>
-    <a href="#" @click.prevent="reset">x</a>
+    
     <search></search>
   </div>
 </template>
