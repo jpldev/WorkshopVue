@@ -1,7 +1,9 @@
 <template lang="html">
   <div> <!-- ⚠️ Este div es importante: todos los componentes deben tener un único elemento principal -->
-    <input type="text" v-model="query">
+    <input type="text" v-model="query" @keyup.enter="search" placeholder="🔎  Search here...">
     <a href="#" @click.prevent="reset">x</a>
+    
+
     <button type="button" @click="search">Search</button>
 
     <ul>
