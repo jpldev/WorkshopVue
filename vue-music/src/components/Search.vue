@@ -1,25 +1,20 @@
 <template lang="html">
-  <div> <!-- ⚠️ Este div es importante: todos los componentes deben tener un único elemento principal -->
+  <div> <!-- ⚠️ Este div es importante: todos los componentes deben tener un unico elemento principal -->
 
     <a href="#" @click.prevent="reset">x</a>
-    
-    <!-- Mientras escribo voy buscando -->
-    <input type="text" v-model="query" @keyup="search" placeholder="🔎  Search here...">
-
-    <!-- Buscar al apretar enter -->
-    <!-- <input type="text" v-model="query" @keyup.enter="search" placeholder="🔎  Search here..."> -->
+    <input type="text" v-model="query" @keyup.enter="search" placeholder="🔎  Search here...">
     <button type="button" @click="search">Search</button>
     <small>{{ found }}</small>
 
     <ul>
-      <!-- Artist -->      
-       <artist v-for="r in results" :artist="r" :key="r.id"></artist>
+      <artist v-for="r in results" :artist="r" :key="r.id"></artist>
     </ul>
 
     <h3 v-if="results.length === 0">
-      No hay resultados
+      No results
     </h3>
 
+    <toaster :class="type" v-show="showToaster" :message="toasterMessage" @close="toggleToaster"></toaster>
   </div>
 </template>
 
@@ -28,6 +23,7 @@
   
 
 import Artist from './Artist.vue'
+import Toaster from './Toaster.vue'
 
   // ************* Init Spotify.js ***************************
   const spotifyService = {
@@ -62,12 +58,15 @@ import Artist from './Artist.vue'
   export default {
     name: 'Search',
 
-    components: { Artist },
+    components: { Artist, Toaster },
 
     data () {
       return {
         query: '',
-        results: []
+        results: [],
+        showToaster: false,
+        toasterMessage: '',
+        type: ''
       }
     },
 
@@ -98,23 +97,42 @@ import Artist from './Artist.vue'
       }
     },
 
-   methods: {
-     //***Inicio Methods***
+    methods: {
       search () {
-        // Hardcodeamos el parámetro type con el valor "artist"
+        // Hardcodeamos el parametro type con el valor "artits"
         spotifyService.search(this.query, 'artist')
           .then(res => {
             console.log(res)
             this.results = res.artists.items
+            
+            if (res.artists.items.length >= 0){
+              this.toggleToaster();
+              this.type = "success";
+              this.toasterMessage = "Artistas consultados correctamente";
+            }
+
+
+          })
+          .catch(err => {
+            this.toggleToaster();
+            this.type = "error";
+            console.log(err);
+            // console.log('e'); // "oh, no!"
+            this.toasterMessage = "Error en la busqueda";
           })
       },
-       reset () {
+
+      reset () {
         this.query = ''
         this.results = []
       },
 
+      toggleToaster () {
+        this.showToaster = !this.showToaster
+      }
+
+      
     }
-    //***Fin Methods***
   }
 </script>
 
