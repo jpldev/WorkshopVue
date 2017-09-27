@@ -2,28 +2,23 @@
   <div> <!-- ⚠️ Este div es importante: todos los componentes deben tener un único elemento principal -->
 
     <a href="#" @click.prevent="reset">x</a>
-    <input type="text" v-model="query" @keyup.enter="search" placeholder="🔎  Search here...">
+    
+    <!-- Mientras escribo voy buscando -->
+    <input type="text" v-model="query" @keyup="search" placeholder="🔎  Search here...">
+
+    <!-- Buscar al apretar enter -->
+    <!-- <input type="text" v-model="query" @keyup.enter="search" placeholder="🔎  Search here..."> -->
     <button type="button" @click="search">Search</button>
     <small>{{ found }}</small>
 
     <ul>
-      <li v-for="r in results">
-        <div class="result">
-          <p>{{ r.name }}</p>
-
-          <!-- ⚠️  En este caso agrego también un v-if para prevenir errores ya que la propiedad images puede venir vacía -->
-          <img v-if="r.images.length" :src="r.images[0].url" :alt="r.name">
-          <p v-else>🚫 🌅</p>
-        </div>
-      </li>
+      <!-- Artist -->      
+       <artist v-for="r in results" :artist="r" :key="r.id"></artist>
     </ul>
 
     <h3 v-if="results.length === 0">
       No hay resultados
     </h3>
-    
-
-
 
   </div>
 </template>
@@ -31,6 +26,9 @@
 
 <script>
   
+
+import Artist from './Artist.vue'
+
   // ************* Init Spotify.js ***************************
   const spotifyService = {
     // Esta es la url base de la API
@@ -64,6 +62,8 @@
   export default {
     name: 'Search',
 
+    components: { Artist },
+
     data () {
       return {
         query: '',
@@ -76,7 +76,6 @@
       //Si la ruta es distinto de / entonces nos estan pasando una busqueda
       if(location.pathname !== '/'){
         var pathname = location.pathname;
-        console.log(pathname.substring(1, pathname.length));
         this.query = pathname.substring(1, pathname.length);
         this.search();
 
@@ -85,12 +84,12 @@
     },
 
 
-    watch: {
-      query(newValue, oldValue){
-        // console.log(newValue, oldValue);
-      }
+    // watch: {
+    //   query(newValue, oldValue){
+    //     // console.log(newValue, oldValue);
+    //   }
 
-    },
+    // },
 
     computed: {
       found () {
@@ -125,24 +124,4 @@
     flex-wrap: wrap;
   }
 
-  li {
-    display: flex;
-    justify-content: center;
-    padding: 0.2em;
-    border: 1px solid #42b983;
-    margin: 0.2em;
-    width: 200px;
-    height: 200px;
-  }
-
-  .result {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  img {
-    width: 100px;
-    height: 100px;
-  }
 </style>
