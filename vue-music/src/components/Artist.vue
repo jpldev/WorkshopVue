@@ -3,9 +3,10 @@
     <div class="artist">
       <p>{{ artist.name }}</p>
 
-      <!-- ⚠️  En este caso agrego también un v-if para prevenir errores ya que la propiedad images puede venir vacía -->
+      <!-- ⚠️  En este caso agrego tambien un v-if para prevenir errores ya que la propiedad images puede venir vacia -->
       <img v-if="artist.images.length" :src="artist.images[0].url" :alt="artist.name">
       <p v-else>🚫 🌅</p>
+      <small> {{ artist.genres | dash-list }}</small>
     </div>
   </li>
 </template>
